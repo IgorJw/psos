@@ -1,0 +1,16 @@
+services:
+  psos:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "80:8080"
+    volumes:
+      - psosSrc:/home/javauser/java
+volumes:
+  psosSrc:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ${PWD}/
