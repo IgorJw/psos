@@ -7,6 +7,23 @@ services:
       - "80:8080"
     volumes:
       - psosSrc:/home/javauser/java
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  db:
+    image: 'postgres:14.1-alpine'
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+
+
 volumes:
   psosSrc:
     driver: local
@@ -14,3 +31,9 @@ volumes:
       o: bind
       type: none
       device: ${PWD}/
+  db:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ${PWD}/postgresql/
