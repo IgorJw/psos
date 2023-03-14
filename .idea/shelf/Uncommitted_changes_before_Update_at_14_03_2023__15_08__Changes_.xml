@@ -1,0 +1,19 @@
+<changelist name="Uncommitted_changes_before_Update_at_14_03_2023,_15_08_[Changes]" date="1678802927633" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_03_2023,_15_08_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 14.03.2023, 15:08 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/psos-test-0.0.1-SNAPSHOT.jar.original" />
+    <option name="AFTER_PATH" value="target/psos-test-0.0.1-SNAPSHOT.jar.original" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_03_2023,_15_08_[Changes]/psos-test-0.0.1-SNAPSHOT.jar.original" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/psos-test-0.0.1-SNAPSHOT.jar" />
+    <option name="AFTER_PATH" value="target/psos-test-0.0.1-SNAPSHOT.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_03_2023,_15_08_[Changes]/psos-test-0.0.1-SNAPSHOT.jar" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/surefire-reports/2023-03-14T13-36-09_549-jvmRun1.dump" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+</changelist>

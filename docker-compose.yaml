@@ -9,6 +9,7 @@ services:
       - psosSrc:/home/javauser/java
     depends_on:
       - db
+      - react
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/user12
       - SPRING_DATASOURCE_USERNAME=user12
@@ -22,6 +23,15 @@ services:
       - POSTGRES_PASSWORD=user
     ports:
       - '5432:5432'
+
+  react:
+    build:
+      context: ./
+      dockerfile: DockerfileFront
+    volumes:
+      - psos-frontend:/home/reactuser/react
+    ports:
+      - '3000:3000'
 
 
 volumes:
@@ -37,3 +47,10 @@ volumes:
       o: bind
       type: none
       device: ${PWD}/postgresql/
+
+  psos-frontend:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ${PWD}/frontend/

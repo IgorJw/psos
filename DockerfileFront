@@ -1,0 +1,10 @@
+FROM node:17-alpine3.12
+RUN adduser -h /home/reactuser -D -u 1001 reactuser
+RUN mkdir /home/reactuser/react
+RUN chown -R reactuser:reactuser /home/reactuser/react
+
+USER reactuser
+WORKDIR /home/reactuser/react
+
+ENTRYPOINT npm install
+ENTRYPOINT npm start

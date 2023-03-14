@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @SpringBootApplication
@@ -29,12 +32,14 @@ public class PsosTestApplication implements CommandLineRunner {
 		entRepository.save(e);
 	}
 
-	@GetMapping("/xd")
-	public Integer home_page()
+	@GetMapping("/")
+	@CrossOrigin(origins = "http://localhost:3000")
+	public Map<String,String> home_page()
 	{
-		Ent e = entRepository.findById(2).orElseThrow(()->new NoSuchElementException());
-
-		return e.getId();
+		Ent xd = entRepository.findById(2).orElseThrow(()->new NoSuchElementException());
+		HashMap<String,String> map = new HashMap<>();
+		map.put("id",xd.getId().toString());
+		return map;
 	}
 
 }
