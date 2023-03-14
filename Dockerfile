@@ -6,4 +6,4 @@ RUN chown -R javauser:javauser /home/javauser/java
 USER javauser
 WORKDIR /home/javauser/java
 
-ENTRYPOINT /home/javauser/java/mvnw clean install && /home/javauser/java/mvnw spring-boot:run
+ENTRYPOINT /home/javauser/java/mvnw spring-boot:run

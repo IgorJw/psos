@@ -25,14 +25,14 @@ public class PsosTestApplication implements CommandLineRunner {
 	public void run(String... args)
 	{
 		Ent e = new Ent();
-		e.setId(1);
+		e.setId(2);
 		entRepository.save(e);
 	}
 
 	@GetMapping("/xd")
 	public Integer home_page()
 	{
-		Ent e = entRepository.findById(1).orElseThrow(()->new NoSuchElementException());
+		Ent e = entRepository.findById(2).orElseThrow(()->new NoSuchElementException());
 
 		return e.getId();
 	}
