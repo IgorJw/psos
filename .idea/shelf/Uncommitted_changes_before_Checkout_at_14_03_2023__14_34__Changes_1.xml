@@ -1,0 +1,19 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_14_03_2023,_14_34_[Changes]1" date="1678800917951" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_14_03_2023,_14_34_[Changes]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 14.03.2023, 14:34 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/psos-test-0.0.1-SNAPSHOT.jar" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/psos-test-0.0.1-SNAPSHOT.jar.original" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/surefire-reports/2023-03-13T19-25-28_156-jvmRun1.dump" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+</changelist>
