@@ -1,3 +1,5 @@
-/home/javauser/java/src/main/java/com/example/psostest/Repository/EntRepository.java
 /home/javauser/java/src/main/java/com/example/psostest/PsosTestApplication.java
-/home/javauser/java/src/main/java/com/example/psostest/Entity/Ent.java
+/home/javauser/java/src/main/java/com/example/psostest/Repository/UsersRepository.java
+/home/javauser/java/src/main/java/com/example/psostest/Entity/Users.java
+/home/javauser/java/src/main/java/com/example/psostest/Repository/UsersBasicInfoRepository.java
+/home/javauser/java/src/main/java/com/example/psostest/Entity/UsersBasicInfo.java

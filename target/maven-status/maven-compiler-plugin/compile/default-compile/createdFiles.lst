@@ -1,3 +1,13 @@
-com/example/psostest/Entity/Ent.class
-com/example/psostest/Repository/EntRepository.class
+com/example/psostest/User/Repository/UsersRepository.class
 com/example/psostest/PsosTestApplication.class
+com/example/psostest/Subject/Repository/SubjectRepository.class
+com/example/psostest/User/Repository/UsersBasicInfoRepository.class
+com/example/psostest/Event/Entity/Event.class
+com/example/psostest/Event/Enum/EventPriority.class
+com/example/psostest/Event/Repository/EventRepository.class
+com/example/psostest/Event/Service/EventService.class
+com/example/psostest/User/Service/UsersService.class
+com/example/psostest/User/Entity/Users.class
+com/example/psostest/User/Entity/UsersBasicInfo.class
+com/example/psostest/Subject/Entity/Subject.class
+com/example/psostest/Subject/Service/SubjectService.class
