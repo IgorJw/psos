@@ -27,9 +27,6 @@ public class PsosTestApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args)
 	{
-		Ent e = new Ent();
-		e.setId(2);
-		entRepository.save(e);
 	}
 
 	@GetMapping("/")
