@@ -16,10 +16,12 @@ public class UsersBasicInfo {
     private Integer year;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private Users user;
+    private User user;
 
-    public UsersBasicInfo(){}
-    public UsersBasicInfo(String name, String surname, Integer year, Users user) {
+    public UsersBasicInfo() {
+    }
+
+    public UsersBasicInfo(String name, String surname, Integer year, User user) {
         this.name = name;
         this.surname = surname;
         this.year = year;
@@ -58,11 +60,11 @@ public class UsersBasicInfo {
         this.year = year;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

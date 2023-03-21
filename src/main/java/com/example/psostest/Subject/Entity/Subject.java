@@ -6,18 +6,20 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "subjects")
 public class Subject {
     @Id
-    @GeneratedValue()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name="name",nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "teacher",nullable = false)
+    @Column(name = "teacher", nullable = false)
     private String teacher;
     @OneToMany(mappedBy = "subject")
     private Set<Event> events;
 
-    public Subject(){}
+    public Subject() {
+    }
 
     public Subject(String name, String teacher) {
         this.name = name;
