@@ -6,10 +6,10 @@ import com.example.psostest.Event.Repository.EventRepository;
 import com.example.psostest.Subject.Entity.Subject;
 import com.example.psostest.Subject.Repository.SubjectRepository;
 import com.example.psostest.Subject.Service.SubjectService;
-import com.example.psostest.User.Entity.Users;
+import com.example.psostest.User.Entity.User;
 import com.example.psostest.User.Entity.UsersBasicInfo;
+import com.example.psostest.User.Repository.UserRepository;
 import com.example.psostest.User.Repository.UsersBasicInfoRepository;
-import com.example.psostest.User.Repository.UsersRepository;
 import com.example.psostest.User.Service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -22,7 +22,7 @@ import java.time.LocalDate;
 public class PsosTestApplication implements CommandLineRunner {
 
     @Autowired
-    UsersRepository usersRepository;
+    UserRepository userRepository;
     @Autowired
     UsersBasicInfoRepository usersBasicInfoRepository;
     @Autowired
@@ -31,8 +31,8 @@ public class PsosTestApplication implements CommandLineRunner {
     EventRepository eventRepository;
 
     @Autowired
-    public PsosTestApplication(UsersRepository usersRepository, UsersBasicInfoRepository usersBasicInfo, UsersService usersService, SubjectRepository subjectRepository, EventRepository eventRepository, SubjectService subjectService) {
-        this.usersRepository = usersRepository;
+    public PsosTestApplication(UserRepository userRepository, UsersBasicInfoRepository usersBasicInfo, UsersService usersService, SubjectRepository subjectRepository, EventRepository eventRepository, SubjectService subjectService) {
+        this.userRepository = userRepository;
         this.usersBasicInfoRepository = usersBasicInfo;
         this.subjectRepository = subjectRepository;
         this.eventRepository = eventRepository;
@@ -44,8 +44,11 @@ public class PsosTestApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        Users user = new Users("login", "haslo");
-        usersRepository.save(user);
+        User user = User.builder()
+                .username("kmaliszewski")
+                .password("123")
+                .build();
+        userRepository.save(user);
 
         UsersBasicInfo userInfo = new UsersBasicInfo(
                 "Kuba",

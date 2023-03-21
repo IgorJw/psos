@@ -4,6 +4,7 @@ import com.example.psostest.Event.Entity.Event;
 import com.example.psostest.Event.Repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,21 +24,21 @@ public class EventController {
 
     @GetMapping("/event/{eventId}")
     @CrossOrigin(origins = "http://localhost:3000")
-    public Map<String, String> getEventInfo(@PathVariable Integer eventId) {
+    public ResponseEntity<Map<String, String>> getEventInfo(@PathVariable Integer eventId) {
         Event event = eventRepository.findById(eventId).orElseThrow(NoSuchElementException::new);
 
-        HashMap<String, String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put("content", event.getContent());
         map.put("subject", event.getSubject().getName());
         map.put("date", event.getDate().toString());
         map.put("priority", event.getPriority().toString());
 
-        return map;
+        return ResponseEntity.ok(map);
     }
 
     @GetMapping("/events/{date}")
-    public List<Event> getEventsByDate(@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("date") LocalDate date) {
+    public ResponseEntity<List<Event>> getEventsByDate(@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("date") LocalDate date) {
         List<Event> events = eventRepository.findAllByDate(date);
-        return events;
+        return ResponseEntity.ok(events);
     }
 }

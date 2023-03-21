@@ -2,7 +2,7 @@ package com.example.psostest.Event.Entity;
 
 import com.example.psostest.Event.Enum.EventPriority;
 import com.example.psostest.Subject.Entity.Subject;
-import com.example.psostest.User.Entity.Users;
+import com.example.psostest.User.Entity.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -10,15 +10,16 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "events")
 public class Event {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
-    private Users user;
+    private User user;
     @ManyToOne
     @JoinColumn(name = "subject_id", nullable = false)
     @JsonIgnore
@@ -34,7 +35,7 @@ public class Event {
     public Event() {
     }
 
-    public Event(Users user, Subject subject, String content, LocalDate date, EventPriority priority) {
+    public Event(User user, Subject subject, String content, LocalDate date, EventPriority priority) {
         this.user = user;
         this.subject = subject;
         this.content = content;
@@ -50,11 +51,11 @@ public class Event {
         this.id = id;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
