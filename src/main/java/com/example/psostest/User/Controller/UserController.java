@@ -16,7 +16,7 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    UsersService usersService;
+    private UsersService usersService;
 
     @GetMapping("/user/{userId}")
     @CrossOrigin(origins = "http://localhost:3000")

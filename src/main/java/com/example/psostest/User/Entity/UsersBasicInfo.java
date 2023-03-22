@@ -1,7 +1,15 @@
 package com.example.psostest.User.Entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class UsersBasicInfo {
     @Id
@@ -18,53 +26,4 @@ public class UsersBasicInfo {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    public UsersBasicInfo() {
-    }
-
-    public UsersBasicInfo(String name, String surname, Integer year, User user) {
-        this.name = name;
-        this.surname = surname;
-        this.year = year;
-        this.user = user;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
