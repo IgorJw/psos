@@ -9,7 +9,7 @@ services:
       - psosSrc:/home/javauser/java
     depends_on:
       - db
-      - react
+      - angular
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/user12
       - SPRING_DATASOURCE_USERNAME=user12
@@ -24,12 +24,12 @@ services:
     ports:
       - '5432:5432'
 
-  react:
+  angular:
     build:
       context: ./
       dockerfile: DockerfileFront
     volumes:
-      - psos-frontend:/home/reactuser/react
+      - psos-frontend:/home/angularuser/angular
     ports:
       - '3000:3000'
 
@@ -53,4 +53,4 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: ${PWD}/frontend/
+      device: ${PWD}/angular/

@@ -1,10 +1,10 @@
 FROM node:17-alpine3.12
-RUN adduser -h /home/reactuser -D -u 1001 reactuser
-RUN mkdir /home/reactuser/react
-RUN chown -R reactuser:reactuser /home/reactuser/react
+RUN adduser -h /home/angularuser -D -u 1001 angularuser
+RUN mkdir /home/angularuser/angular
+RUN chown -R angularuser:angularuser /home/angularuser/angular
 
-USER reactuser
-WORKDIR /home/reactuser/react
+USER angularuser
+WORKDIR /home/angularuser/angular
 
 ENTRYPOINT npm install
 ENTRYPOINT npm start
