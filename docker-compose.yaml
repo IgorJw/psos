@@ -29,7 +29,7 @@ services:
       context: ./
       dockerfile: DockerfileFront
     volumes:
-      - psos-frontend:/home/angularuser/angular
+      - psos-angular:/home/angularuser/angular
     ports:
       - '3000:3000'
 
@@ -48,7 +48,7 @@ volumes:
       type: none
       device: ${PWD}/postgresql/
 
-  psos-frontend:
+  psos-angular:
     driver: local
     driver_opts:
       o: bind
