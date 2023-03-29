@@ -6,10 +6,14 @@ import com.example.psostest.User.Entity.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import java.time.LocalDate;
 
+@Builder
 @Entity
+@AllArgsConstructor
 @Table(name = "events")
 public class Event {
 

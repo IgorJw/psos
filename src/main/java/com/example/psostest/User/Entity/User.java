@@ -1,6 +1,7 @@
 package com.example.psostest.User.Entity;
 
 import com.example.psostest.Event.Entity.Event;
+import com.example.psostest.Subject.Entity.Subject;
 import com.example.psostest.User.Enum.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,7 +33,8 @@ public class User implements UserDetails {
     private UsersBasicInfo usersBasicInfo;
     @OneToMany(mappedBy = "user")
     private Set<Event> events;
-
+    @OneToMany(mappedBy = "user")
+    private Set<Subject> subjects;
     @Enumerated(EnumType.STRING)
     private Role role;
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.management.InstanceAlreadyExistsException;
 import javax.security.auth.login.CredentialNotFoundException;
 
 @RestController
@@ -23,7 +24,7 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
-    ) {
+    ) throws InstanceAlreadyExistsException {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 

@@ -8,28 +8,38 @@ import com.example.psostest.Auth.Token.Enum.TokenType;
 import com.example.psostest.Auth.Token.Repository.TokenRepository;
 import com.example.psostest.Config.Service.JwtService;
 import com.example.psostest.User.Entity.User;
+import com.example.psostest.User.Entity.UsersBasicInfo;
 import com.example.psostest.User.Enum.Role;
 import com.example.psostest.User.Repository.UserRepository;
+import com.example.psostest.User.Repository.UsersBasicInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.management.InstanceAlreadyExistsException;
 import javax.security.auth.login.CredentialNotFoundException;
+import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
 
     private final UserRepository userRepository;
+    private final UsersBasicInfoRepository usersBasicInfoRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-
     private final TokenRepository tokenRepository;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public AuthenticationResponse register(RegisterRequest request) throws InstanceAlreadyExistsException {
+
+        Optional<User> user1 = userRepository.findByUsername(request.getUsername());
+        if (user1.isPresent())
+            throw new InstanceAlreadyExistsException();
+
 
         User user = User
                 .builder()
@@ -39,7 +49,17 @@ public class AuthenticationService {
                 .build();
         user.setRole(Role.USER);
         userRepository.save(user);
+        UsersBasicInfo userInfo = UsersBasicInfo
+                .builder()
+                .name(request.getName())
+                .surname(request.getSurname())
+                .user(user)
+                .year(Integer.parseInt(request.getYear()))
+                .date(LocalDate.now())
+                .build();
+        usersBasicInfoRepository.save(userInfo);
         var jwtToken = jwtService.generateToken(user);
+
         return AuthenticationResponse
                 .builder()
                 .token(jwtToken)
