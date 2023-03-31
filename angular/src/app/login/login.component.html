@@ -1,0 +1,39 @@
+<div class="dd">
+<div class="container" [class.right-panel-active]="isRightPanelActive">
+  <div class="form-container sign-up-container">
+    <div class="form" >
+      <h1>Stwórz konto</h1>
+      <span>lub przejdź dorejestracji</span>
+      <input type="text" placeholder="Username" />
+      <input type="password" placeholder="Hasło" />
+      <input type="text" placeholder="Aktualny rok studiów" />
+      <input type="text" placeholder="Kierunek studiów" />
+      <button>Zarejestruj się</button>
+    </div>
+  </div>
+  <div class="form-container sign-in-container">
+    <div class="form" >
+      <h1>Zaloguj się</h1>
+      <span>lub utwórz konto</span>
+      <input type="text" placeholder="Username" />
+      <input type="password" placeholder="Hasło" />
+      <a href="#">Nie pamietasz hasła?</a>
+      <button>Zaloguj sie</button>
+    </div>
+  </div>
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-left">
+        <h1>Witaj z powrotem!</h1>
+        <button (click)="togglePanel()" class="ghost">Zaloguj się</button>
+      </div>
+      <div class="overlay-panel overlay-right">
+          <p>Wprowadź swoje dane, aby być na bieżąco z postępem swoich studiów.</p>
+        <button (click)="togglePanel()" class="ghost">Zarejestruj się</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
