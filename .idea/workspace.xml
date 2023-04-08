@@ -5,12 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b2f057d-dc12-4285-ba03-01c4d7b9aa65" name="Changes" comment="Change frontend from react to angular">
+      <change afterPath="$PROJECT_DIR$/psos-test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/psostest/Subject/Entity/Subject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/psostest/Subject/Entity/Subject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/psostest/User/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/psostest/User/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/psostest/User/Entity/UsersBasicInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/psostest/User/Entity/UsersBasicInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/psostest/User/Service/UsersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/psostest/User/Service/UsersService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DockerfileFront" beforeDir="false" afterPath="$PROJECT_DIR$/DockerfileFront" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/.vscode/extensions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/.vscode/launch.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/.vscode/tasks.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/angular.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/app-routing.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/app.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/app.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/app.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/app.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/app.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/assets/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/tsconfig.app.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/tsconfig.spec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +101,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "angular__to__vue__migration",
     "last_opened_file_path": "/home/kuba/dev/psos",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -98,6 +123,13 @@
     ]
   }
 }]]></component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
   <component name="RunManager" selected="Docker.Docker Image">
     <configuration name="PsosTestApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="psos" />
@@ -141,6 +173,7 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.docker-compose.yaml.react: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yaml.react: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yaml.react: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yaml.react: Compose Deployment" />

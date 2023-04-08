@@ -12,6 +12,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="psos" target="19" />
+      <module name="psos-test" target="19" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

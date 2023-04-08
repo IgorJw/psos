@@ -2,8 +2,8 @@ com/example/psostest/User/Repository/UserRepository.class
 com/example/psostest/Auth/Request/RegisterRequest.class
 com/example/psostest/PsosTestApplication.class
 com/example/psostest/Config/ApplicationConfig.class
-com/example/psostest/Event/Entity/Event.class
 com/example/psostest/Config/Service/JwtService.class
+com/example/psostest/Event/Entity/Event.class
 com/example/psostest/User/Entity/User.class
 com/example/psostest/Auth/Response/AuthenticationResponse.class
 com/example/psostest/User/Service/UsersService.class
