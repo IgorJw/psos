@@ -35,15 +35,19 @@ public class EventController {
     @GetMapping("/event/{eventId}")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Map<String, String>> getEventInfo(@PathVariable Integer eventId) {
-        Event event = eventRepository.findById(eventId).orElseThrow(NoSuchElementException::new);
+        try {
+            Event event = eventRepository.findById(eventId).orElseThrow(NoSuchElementException::new);
 
-        Map<String, String> map = new HashMap<>();
-        map.put("content", event.getContent());
-        map.put("subject", event.getSubject().getName());
-        map.put("date", event.getDate().toString());
-        map.put("priority", event.getPriority().toString());
+            Map<String, String> map = new HashMap<>();
+            map.put("content", event.getContent());
+            map.put("subject", event.getSubject().getName());
+            map.put("date", event.getDate().toString());
+            map.put("priority", event.getPriority().toString());
 
-        return ResponseEntity.ok(map);
+            return ResponseEntity.ok(map);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/events/{date}")
@@ -71,24 +75,28 @@ public class EventController {
 
     @PutMapping("/event")
     public ResponseEntity<Event> modifyEvent(@RequestBody EventModifyRequest request) {
-        Event event = eventRepository.findById(request.getEventId()).orElseThrow(NoSuchElementException::new);
+        try {
+            Event event = eventRepository.findById(request.getEventId()).orElseThrow(NoSuchElementException::new);
 
-        if (request.getContent() != null) {
-            event.setContent(request.getContent());
+            if (request.getContent() != null) {
+                event.setContent(request.getContent());
+            }
+
+            if (request.getSubjectId() != null) {
+                Subject subject = subjectRepository.findById(request.getSubjectId()).orElseThrow(NoSuchElementException::new);
+                event.setSubject(subject);
+            }
+
+            if (request.getDate() != null)
+                event.setDate(request.getDate());
+
+            if (request.getPriority() != null)
+                event.setPriority(request.getPriority());
+
+            eventRepository.save(event);
+            return ResponseEntity.ok(event);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
         }
-
-        if (request.getSubjectId() != null) {
-            Subject subject = subjectRepository.findById(request.getSubjectId()).orElseThrow(NoSuchElementException::new);
-            event.setSubject(subject);
-        }
-
-        if (request.getDate() != null)
-            event.setDate(request.getDate());
-
-        if (request.getPriority() != null)
-            event.setPriority(request.getPriority());
-
-        eventRepository.save(event);
-        return ResponseEntity.ok(event);
     }
 }

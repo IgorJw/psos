@@ -43,36 +43,48 @@ public class SubjectController {
 
     @PostMapping("/subject")
     public ResponseEntity<Subject> createSubject(@RequestBody SubjectCreateRequest request) {
-        String userName = jwtService.extractUsername(request.getUserToken());
-        User user = userRepository.findByUsername(userName).orElseThrow(NoSuchElementException::new);
+        try {
+            String userName = jwtService.extractUsername(request.getUserToken());
+            User user = userRepository.findByUsername(userName).orElseThrow(NoSuchElementException::new);
 
-        Subject newSubject = Subject
-                .builder()
-                .name(request.getName())
-                .teacher(request.getTeacher())
-                .user(user)
-                .build();
-        subjectRepository.save(newSubject);
-        return ResponseEntity.ok(newSubject);
+            Subject newSubject = Subject
+                    .builder()
+                    .name(request.getName())
+                    .teacher(request.getTeacher())
+                    .user(user)
+                    .build();
+            subjectRepository.save(newSubject);
+            return ResponseEntity.ok(newSubject);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/subject")
     public ResponseEntity<Subject> modifySubject(@RequestBody SubjectModifyRequest request) {
-        Subject subject = subjectRepository.findById(request.getSubjectId()).orElseThrow(NoSuchElementException::new);
-        if (request.getTeacher() != null)
-            subject.setTeacher(request.getTeacher());
-        if (request.getName() != null)
-            subject.setName(request.getName());
+        try {
+            Subject subject = subjectRepository.findById(request.getSubjectId()).orElseThrow(NoSuchElementException::new);
+            if (request.getTeacher() != null)
+                subject.setTeacher(request.getTeacher());
+            if (request.getName() != null)
+                subject.setName(request.getName());
 
-        subjectRepository.save(subject);
-        return ResponseEntity.ok(subject);
+            subjectRepository.save(subject);
+            return ResponseEntity.ok(subject);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/subject")
     public ResponseEntity<Subject> deleteSubject(@RequestBody SubjectDeleteRequest request) {
-        Subject subject = subjectRepository.findById(request.getSubjectId()).orElseThrow(NoSuchElementException::new);
-        subjectRepository.delete(subject);
+        try {
+            Subject subject = subjectRepository.findById(request.getSubjectId()).orElseThrow(NoSuchElementException::new);
+            subjectRepository.delete(subject);
 
-        return ResponseEntity.ok(subject);
+            return ResponseEntity.ok(subject);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
