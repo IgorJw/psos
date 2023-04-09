@@ -6,11 +6,15 @@ import com.example.psostest.User.Entity.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "events")
+@Builder
+@AllArgsConstructor
 public class Event {
 
     @Id
@@ -20,7 +24,7 @@ public class Event {
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User user;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.REMOVE})
     @JoinColumn(name = "subject_id", nullable = false)
     @JsonIgnore
     private Subject subject;
