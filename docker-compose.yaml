@@ -9,7 +9,7 @@ services:
       - psosSrc:/home/javauser/java
     depends_on:
       - db
-      - angular
+      - vue
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/user12
       - SPRING_DATASOURCE_USERNAME=user12
@@ -24,12 +24,12 @@ services:
     ports:
       - '5432:5432'
 
-  angular:
+  vue:
     build:
       context: ./
       dockerfile: DockerfileFront
     volumes:
-      - psos-angular:/home/angularuser/angular
+      - psos-vue:/home/vueuser/vue
     ports:
       - '4200:4200'
 
@@ -48,9 +48,9 @@ volumes:
       type: none
       device: ${PWD}/postgresql/
 
-  psos-angular:
+  psos-vue:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: ${PWD}/angular/
+      device: ${PWD}/vue/
