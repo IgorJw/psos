@@ -29,7 +29,7 @@ CREATE TABLE events (
                         event_priority VARCHAR(255)
 );
 INSERT INTO users (username, password,role)
-VALUES ('admin', '$2a$10$jpibn/RY5spt5adkqBcnxOlGmeI3xtABO0jDa7I2CONgdHK6FSBoO','ADMIN');
+VALUES ('admin', '$2a$10$jpibn/RY5spt5adkqBcnxOlGmeI3xtABO0jDa7I2CONgdHK6FSBoO',1);
 
 INSERT INTO users_basic_info (name, surname, start_year, user_id)
 VALUES ('name', 'surname', 2023, 1);
@@ -38,4 +38,4 @@ INSERT INTO subjects (name, teacher, user_id)
 VALUES ('Analiza matematyczna', 'Bulatek', 1);
 
 INSERT INTO events (user_id, subject_id, content, date, event_priority)
-VALUES (1, 1, 'Kolos z analizy', '2023-04-15', 'BIG');
+VALUES (1, 1, 'Kolos z analizy', '2023-04-15', 2);

@@ -1,15 +1,16 @@
 package com.example.psostest.Subject.Controller;
 
+import com.example.psostest.Config.Response.ResponseWithMessage;
 import com.example.psostest.Config.Service.JwtService;
 import com.example.psostest.Subject.Entity.Subject;
 import com.example.psostest.Subject.Repository.SubjectRepository;
 import com.example.psostest.Subject.Request.SubjectCreateRequest;
-import com.example.psostest.Subject.Request.SubjectDeleteRequest;
 import com.example.psostest.Subject.Request.SubjectModifyRequest;
 import com.example.psostest.Subject.Service.SubjectService;
 import com.example.psostest.User.Entity.User;
 import com.example.psostest.User.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,15 +77,15 @@ public class SubjectController {
         }
     }
 
-    @DeleteMapping("/subject")
-    public ResponseEntity<Subject> deleteSubject(@RequestBody SubjectDeleteRequest request) {
+    @DeleteMapping("/subject/{subjectId}")
+    public ResponseEntity<ResponseWithMessage> deleteSubject(@PathVariable Integer subjectId) {
         try {
-            Subject subject = subjectRepository.findById(request.getSubjectId()).orElseThrow(NoSuchElementException::new);
+            Subject subject = subjectRepository.findById(subjectId).orElseThrow(NoSuchElementException::new);
             subjectRepository.delete(subject);
 
-            return ResponseEntity.ok(subject);
+            return ResponseEntity.ok(new ResponseWithMessage("Subject Deleted"));
         } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseWithMessage("Subject to delete not found"));
         }
     }
 }
