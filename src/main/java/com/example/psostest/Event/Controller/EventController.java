@@ -1,5 +1,6 @@
 package com.example.psostest.Event.Controller;
 
+import com.example.psostest.Config.Response.ResponseWithMessage;
 import com.example.psostest.Config.Service.JwtService;
 import com.example.psostest.Event.Entity.Event;
 import com.example.psostest.Event.Repository.EventRepository;
@@ -11,6 +12,7 @@ import com.example.psostest.User.Entity.User;
 import com.example.psostest.User.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -97,6 +99,17 @@ public class EventController {
             return ResponseEntity.ok(event);
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
+        }
+    }
+    @DeleteMapping("/event/{eventId}")
+    public ResponseEntity<ResponseWithMessage> deleteEvent(@PathVariable Integer eventId) {
+        try {
+            Subject subject = subjectRepository.findById(eventId).orElseThrow(NoSuchElementException::new);
+            subjectRepository.delete(subject);
+
+            return ResponseEntity.ok(new ResponseWithMessage("Event Deleted"));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseWithMessage("Event to delete not found"));
         }
     }
 }

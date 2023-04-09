@@ -8,13 +8,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "events")
 @Builder
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Event {
 
     @Id
@@ -35,63 +39,4 @@ public class Event {
     private LocalDate date;
     @Column(name = "event_priority")
     private EventPriority priority;
-
-    public Event() {
-    }
-
-    public Event(User user, Subject subject, String content, LocalDate date, EventPriority priority) {
-        this.user = user;
-        this.subject = subject;
-        this.content = content;
-        this.date = date;
-        this.priority = priority;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public EventPriority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(EventPriority priority) {
-        this.priority = priority;
-    }
 }
