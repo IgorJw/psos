@@ -9,7 +9,7 @@ import com.example.psostest.Subject.Request.SubjectModifyRequest;
 import com.example.psostest.Subject.Service.SubjectService;
 import com.example.psostest.User.Entity.User;
 import com.example.psostest.User.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,16 +19,13 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
+@RequiredArgsConstructor
 public class SubjectController {
 
-    @Autowired
-    SubjectService subjectService;
-    @Autowired
-    SubjectRepository subjectRepository;
-    @Autowired
-    JwtService jwtService;
-    @Autowired
-    UserRepository userRepository;
+    private final SubjectService subjectService;
+    private final SubjectRepository subjectRepository;
+    private final JwtService jwtService;
+    private final UserRepository userRepository;
 
     @GetMapping("/subject/{subjectId}")
     @CrossOrigin(origins = "http://localhost:3000")
@@ -62,7 +59,7 @@ public class SubjectController {
     }
 
     @PutMapping("/subject")
-    public ResponseEntity<Subject> modifySubject(@RequestBody SubjectModifyRequest request) {
+    public ResponseEntity<ResponseWithMessage> modifySubject(@RequestBody SubjectModifyRequest request) {
         try {
             Subject subject = subjectRepository.findById(request.getSubjectId()).orElseThrow(NoSuchElementException::new);
             if (request.getTeacher() != null)
@@ -71,9 +68,9 @@ public class SubjectController {
                 subject.setName(request.getName());
 
             subjectRepository.save(subject);
-            return ResponseEntity.ok(subject);
+            return ResponseEntity.ok(new ResponseWithMessage("Subject modified"));
         } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseWithMessage("Subject to modify not found"));
         }
     }
 

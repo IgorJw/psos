@@ -29,7 +29,7 @@ CREATE TABLE events (
                         event_priority VARCHAR(255)
 );
 INSERT INTO users (username, password,role)
-VALUES ('admin', '$2a$10$jpibn/RY5spt5adkqBcnxOlGmeI3xtABO0jDa7I2CONgdHK6FSBoO',1);
+VALUES ('admin', '$2a$10$jpibn/RY5spt5adkqBcnxOlGmeI3xtABO0jDa7I2CONgdHK6FSBoO','ADMIN');
 
 INSERT INTO users_basic_info (name, surname, start_year, user_id)
 VALUES ('name', 'surname', 2023, 1);
