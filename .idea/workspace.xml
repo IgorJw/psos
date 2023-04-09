@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b2f057d-dc12-4285-ba03-01c4d7b9aa65" name="Changes" comment="Change frontend from react to angular">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/psostest/Subject/Entity/Subject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/psostest/Subject/Entity/Subject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/psostest/User/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/psostest/User/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/psostest/User/Entity/UsersBasicInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/psostest/User/Entity/UsersBasicInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/psostest/User/Service/UsersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/psostest/User/Service/UsersService.java" afterDir="false" />
-    </list>
+    <list default="true" id="0b2f057d-dc12-4285-ba03-01c4d7b9aa65" name="Changes" comment="Added flyway database migration system" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,13 +29,16 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="migrations" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitRewordedCommitMessages">
     <option name="onto" value="42d2ad32dc55ff005175cce52cc6e9246e426a08" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/vue/.gitignore" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="JsbtTreeLayoutManager">
     <layout place="tools.popupGrunt">
@@ -77,6 +73,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/home/kuba/dev/psos",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -87,9 +84,9 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "settings.build.tools.auto.reload": "ALL",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "spring.configuration.checksum": "28625dceee108bdf9ddda88bd99ee37a",
-    "ts.external.directory.path": "/home/kuba/dev/psos/angular/node_modules/typescript/lib",
+    "settings.editor.selected.configurable": "settings.sync",
+    "spring.configuration.checksum": "f7cc0155643e7b64eebb1cbe714cf1e5",
+    "ts.external.directory.path": "/home/igor/.local/share/JetBrains/Toolbox/apps/IDEA-U/ch-0/231.8109.175/plugins/javascript-impl/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -98,7 +95,21 @@
     ]
   }
 }]]></component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
   <component name="RunManager" selected="Docker.Docker Image">
+    <configuration name="PsosTestApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="psos-test" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.psostest.PsosTestApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PsosTestApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="psos" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.psostest.PsosTestApplication" />
@@ -137,10 +148,12 @@
     <list>
       <item itemvalue="Docker.Docker Image" />
       <item itemvalue="Docker.docker-compose.yaml.react: Compose Deployment" />
+      <item itemvalue="Spring Boot.PsosTestApplication (1)" />
       <item itemvalue="Spring Boot.PsosTestApplication" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.docker-compose.yaml.react: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yaml.react: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yaml.react: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yaml.react: Compose Deployment" />
@@ -163,6 +176,8 @@
       <workItem from="1678887540683" duration="15495000" />
       <workItem from="1679331570039" duration="14449000" />
       <workItem from="1679512775735" duration="2722000" />
+      <workItem from="1680993173446" duration="4976000" />
+      <workItem from="1680999262515" duration="1928000" />
     </task>
     <task id="LOCAL-00001" summary="endpoints for subject for user event for user and date and more more">
       <created>1679402220203</created>
@@ -178,7 +193,28 @@
       <option name="project" value="LOCAL" />
       <updated>1679514400081</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Change frontend framework to vue">
+      <created>1680992074171</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1680992074171</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Change frontend framework to vue">
+      <created>1680992183661</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1680992183661</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Change frontend framework to vue">
+      <created>1680992972435</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680992972435</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +237,9 @@
     <MESSAGE value="REMOVED OLD FILES" />
     <MESSAGE value="endpoints for subject for user event for user and date and more more" />
     <MESSAGE value="Change frontend from react to angular" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change frontend from react to angular" />
+    <MESSAGE value="Change frontend framework to vue" />
+    <MESSAGE value="Added flyway database migration system" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added flyway database migration system" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

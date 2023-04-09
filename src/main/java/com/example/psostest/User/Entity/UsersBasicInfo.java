@@ -20,7 +20,7 @@ public class UsersBasicInfo {
     private String name;
     @Column(name = "surname")
     private String surname;
-    @Column(name = "startYear")
+    @Column(name = "start_year")
     private Integer year;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
