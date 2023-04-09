@@ -41,16 +41,22 @@ public class SubjectController {
 
     @PostMapping("/subject")
     public ResponseEntity<Subject> createSubject(@RequestBody SubjectRequest request) {
-        String userName = jwtService.extractUsername(request.getUserToken());
-        User user = userRepository.findByUsername(userName).orElseThrow(NoSuchElementException::new);
+        try{
+            String userName = jwtService.extractUsername(request.getUserToken());
+            User user = userRepository.findByUsername(userName).orElseThrow(NoSuchElementException::new);
 
-        Subject newSubject = Subject
-                .builder()
-                .name(request.getName())
-                .teacher(request.getTeacher())
-                .user(user)
-                .build();
-        subjectRepository.save(newSubject);
-        return ResponseEntity.ok(newSubject);
+            Subject newSubject = Subject
+                    .builder()
+                    .name(request.getName())
+                    .teacher(request.getTeacher())
+                    .user(user)
+                    .build();
+            subjectRepository.save(newSubject);
+            return ResponseEntity.ok(newSubject);
+        }
+        catch (NoSuchElementException e)
+        {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

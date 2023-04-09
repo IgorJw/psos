@@ -34,15 +34,21 @@ public class EventController {
     @GetMapping("/event/{eventId}")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Map<String, String>> getEventInfo(@PathVariable Integer eventId) {
-        Event event = eventRepository.findById(eventId).orElseThrow(NoSuchElementException::new);
+        try{
+            Event event = eventRepository.findById(eventId).orElseThrow(NoSuchElementException::new);
 
-        Map<String, String> map = new HashMap<>();
-        map.put("content", event.getContent());
-        map.put("subject", event.getSubject().getName());
-        map.put("date", event.getDate().toString());
-        map.put("priority", event.getPriority().toString());
+            Map<String, String> map = new HashMap<>();
+            map.put("content", event.getContent());
+            map.put("subject", event.getSubject().getName());
+            map.put("date", event.getDate().toString());
+            map.put("priority", event.getPriority().toString());
 
-        return ResponseEntity.ok(map);
+            return ResponseEntity.ok(map);
+        }
+        catch (NoSuchElementException e)
+        {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/events/{date}")
@@ -53,18 +59,24 @@ public class EventController {
 
     @PostMapping("/event")
     public ResponseEntity<Event> createEvent(@RequestBody EventRequest request) {
-        String userName = jwtService.extractUsername(request.getUserToken());
-        User user = userRepository.findByUsername(userName).orElseThrow(NoSuchElementException::new);
-        Subject subject = subjectRepository.findById(request.getSubjectId()).orElseThrow(NoSuchElementException::new);
-        Event newEvent = Event
-                .builder()
-                .user(user)
-                .subject(subject)
-                .content(request.getContent())
-                .date(request.getDate())
-                .priority(request.getPriority())
-                .build();
-        eventRepository.save(newEvent);
-        return ResponseEntity.ok(newEvent);
+        try{
+            String userName = jwtService.extractUsername(request.getUserToken());
+            User user = userRepository.findByUsername(userName).orElseThrow(NoSuchElementException::new);
+            Subject subject = subjectRepository.findById(request.getSubjectId()).orElseThrow(NoSuchElementException::new);
+            Event newEvent = Event
+                    .builder()
+                    .user(user)
+                    .subject(subject)
+                    .content(request.getContent())
+                    .date(request.getDate())
+                    .priority(request.getPriority())
+                    .build();
+            eventRepository.save(newEvent);
+            return ResponseEntity.ok(newEvent);
+        }
+        catch (NoSuchElementException e)
+        {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

@@ -1,7 +1,7 @@
 package com.example.psostest.User.Controller;
 
 import com.example.psostest.User.Entity.UsersBasicInfo;
-import com.example.psostest.User.Service.UsersService;
+import com.example.psostest.User.Repository.UsersBasicInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,13 +16,13 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private UsersService usersService;
+    private UsersBasicInfoRepository usersBasicInfoRepository;
 
     @GetMapping("/user/{userId}")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Map<String, String>> getUserInfo(@PathVariable Integer userId) {
         Map<String, String> map = new HashMap<>();
-        UsersBasicInfo userInfo = usersService.getUserBasicInfoByUserId(userId);
+        UsersBasicInfo userInfo = usersBasicInfoRepository.findByUserId(userId);
 
         map.put("name", userInfo.getName());
         map.put("surname", userInfo.getSurname());
