@@ -10,7 +10,7 @@ import com.example.psostest.Subject.Entity.Subject;
 import com.example.psostest.Subject.Repository.SubjectRepository;
 import com.example.psostest.User.Entity.User;
 import com.example.psostest.User.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,16 +23,13 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
+@RequiredArgsConstructor
 public class EventController {
 
-    @Autowired
-    EventRepository eventRepository;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    SubjectRepository subjectRepository;
-    @Autowired
-    JwtService jwtService;
+    private final EventRepository eventRepository;
+    private final UserRepository userRepository;
+    private final SubjectRepository subjectRepository;
+    private final JwtService jwtService;
 
     @GetMapping("/event/{eventId}")
     @CrossOrigin(origins = "http://localhost:3000")
@@ -76,7 +73,7 @@ public class EventController {
     }
 
     @PutMapping("/event")
-    public ResponseEntity<Event> modifyEvent(@RequestBody EventModifyRequest request) {
+    public ResponseEntity<ResponseWithMessage> modifyEvent(@RequestBody EventModifyRequest request) {
         try {
             Event event = eventRepository.findById(request.getEventId()).orElseThrow(NoSuchElementException::new);
 
@@ -96,11 +93,12 @@ public class EventController {
                 event.setPriority(request.getPriority());
 
             eventRepository.save(event);
-            return ResponseEntity.ok(event);
+            return ResponseEntity.ok(new ResponseWithMessage("Event modified"));
         } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseWithMessage("Event to modify not found"));
         }
     }
+
     @DeleteMapping("/event/{eventId}")
     public ResponseEntity<ResponseWithMessage> deleteEvent(@PathVariable Integer eventId) {
         try {

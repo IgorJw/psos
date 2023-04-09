@@ -8,8 +8,10 @@ import com.example.psostest.Auth.Token.Enum.TokenType;
 import com.example.psostest.Auth.Token.Repository.TokenRepository;
 import com.example.psostest.Config.Service.JwtService;
 import com.example.psostest.User.Entity.User;
+import com.example.psostest.User.Entity.UsersBasicInfo;
 import com.example.psostest.User.Enum.Role;
 import com.example.psostest.User.Repository.UserRepository;
+import com.example.psostest.User.Repository.UsersBasicInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +25,7 @@ import javax.security.auth.login.CredentialNotFoundException;
 public class AuthenticationService {
 
     private final UserRepository userRepository;
+    private final UsersBasicInfoRepository usersBasicInfoRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -39,6 +42,16 @@ public class AuthenticationService {
                 .build();
         user.setRole(Role.USER);
         userRepository.save(user);
+
+        UsersBasicInfo ubi = UsersBasicInfo
+                .builder()
+                .name(request.getName())
+                .surname(request.getSurname())
+                .year(request.getYear())
+                .user(user)
+                .build();
+        usersBasicInfoRepository.save(ubi);
+
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse
                 .builder()
