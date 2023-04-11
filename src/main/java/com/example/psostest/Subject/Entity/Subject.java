@@ -1,6 +1,7 @@
 package com.example.psostest.Subject.Entity;
 
 import com.example.psostest.Event.Entity.Event;
+import com.example.psostest.Requirements.Entity.SubjectRequirement;
 import com.example.psostest.User.Entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -27,6 +28,8 @@ public class Subject {
     private String teacher;
     @OneToMany(mappedBy = "subject", cascade = {CascadeType.REMOVE})
     private Set<Event> events;
+    @OneToMany(mappedBy = "subject", cascade = {CascadeType.REMOVE})
+    private Set<SubjectRequirement> subjectRequirements;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
