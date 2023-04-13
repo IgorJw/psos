@@ -1,0 +1,412 @@
+openapi: 3.0.3
+info:
+  title: DMCore Api - BlackBeauty
+  description: REST Api for BlackBeauty system
+  version: 1.0.0
+servers:
+  - url: 'http://localhost'
+
+components:
+  securitySchemes:
+    TokenBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    201:
+      description: 'Created'
+    204:
+      description: 'No content'
+    302:
+      description: Found
+      headers:
+        Location:
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              redirectUrl:
+                type: string
+                example: 'http://localhost'
+              description:
+                type: string
+                example: 'DESC'
+    400:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errorCode:
+                type: string
+                example: "VALIDATION_ERROR"
+              violations:
+                type: object
+                example: { key: value }
+    401:
+      description: Authorization error
+    403:
+      description: Permission not granted
+    503:
+      description: Service unavailable
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              service:
+                type: string
+                example: 'PAYMENT'
+              error:
+                type: string
+                example: 'Error description'
+
+
+paths:
+  /api/token:
+    post:
+      tags:
+        - Authorization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: 'admin@localhost'
+                password:
+                  type: string
+                  example: 'admin'
+      responses:
+        200:
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: 'asd.asd.asd'
+        400:
+          $ref: '#/components/responses/400'
+        404:
+          description: Authorization failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: string
+                    example: 'AUTHORIZATION_FAILED'
+  /api/client:
+    post:
+      tags:
+        - Client
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Tadeusz"
+                surname:
+                  type: string
+                  example: "Kosciuszko"
+                password:
+                  type: string
+                  example: "123456789"
+                email:
+                  type: string
+                  example: "test@test.test"
+                phone:
+                  type: string
+                  example: "997112911"
+                termsOfUse:
+                  type: integer
+                  example: true
+      responses:
+        204:
+          $ref: '#/components/responses/204'
+  /api/client/payment-card:
+    post:
+      tags:
+        - Client
+      security:
+        - TokenBearer: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                clientIpAddress:
+                  type: string
+                  example: '127.0.0.1'
+                singleToken:
+                  type: string
+                  example: 'TOK_1IHRPT6HKSSS3H62K0GS8pElP862'
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        302:
+          $ref: '#/components/responses/302'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+        503:
+          $ref: '#/components/responses/503'
+  /api/payment/client/{clientId}/card-token:
+    post:
+      tags:
+        - Payment
+      parameters:
+        - in: path
+          name: clientId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                order:
+                  type: object
+                  example: { key: val }
+      responses:
+        200:
+          description: 'Success'
+        400:
+          $ref: '#/components/responses/400'
+  /api/studio/{studioId}/services:
+    get:
+      tags:
+        - Service
+      parameters:
+        - in: path
+          name: studioId
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    serviceId:
+                      type: integer
+                      example: 1
+                    serviceName:
+                      type: string
+                      example: Malowanie paznokci
+                    serviceDescription:
+                      type: string
+                      example: Opis usługi
+                    servicePrice:
+                      type: integer
+                      example: 8300
+                    serviceEmployees:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          userId:
+                            type: integer
+                            example: 1
+                          firstname:
+                            type: string
+                            example: Imię
+                          lastname:
+                            type: string
+                            example: Nazwisko
+  /api/service/{serviceId}:
+    get:
+      tags:
+        - Service
+      parameters:
+        - in: path
+          name: serviceId
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  serviceId:
+                    type: integer
+                    example: 1
+                  serviceName:
+                    type: string
+                    example: Malowanie paznokci
+                  serviceDescription:
+                    type: string
+                    example: Opis usługi
+                  servicePrice:
+                    type: integer
+                    example: 8300
+                  serviceEmployees:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        userId:
+                          type: integer
+                          example: 1
+                        firstname:
+                          type: string
+                          example: Imię
+                        lastname:
+                          type: string
+                          example: Nazwisko
+  /api/service/{serviceId}/employee/{employeeId}/day/{dayString}/slots:
+    get:
+      tags:
+        - ServiceVisit
+      parameters:
+        - in: path
+          name: serviceId
+          required: true
+          schema:
+            type: integer
+            example: 1
+        - in: path
+          name: employeeId
+          required: true
+          schema:
+            type: integer
+            example: 0
+        - in: path
+          name: dayString
+          required: true
+          schema:
+            type: string
+            example: '2023-01-01'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    employees:
+                      type: array
+                      items:
+                        type: integer
+                    time:
+                      type: string
+                      example: 2023-01-01 10:00
+                    timestamp:
+                      type: integer
+                      example: 123456789
+  /api/service/{serviceId}/visit:
+    post:
+      tags:
+        - ServiceVisit
+      security:
+        - TokenBearer: [ ]
+      parameters:
+        - in: path
+          name: serviceId
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dateTime:
+                  type: string
+                  example: "2023-01-15 08:00:00"
+                employees:
+                  type: array
+                  items:
+                    type: integer
+                    example: 1
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        403:
+          $ref: '#/components/responses/403'
+  /api/studio/{studioId}/employee/{employeeId}/visits:
+    get:
+      tags:
+        - Studio
+      parameters:
+        - in: path
+          name: studioId
+          required: true
+          schema:
+            type: integer
+            example: 1
+        - in: path
+          name: employeeId
+          required: true
+          schema:
+            type: integer
+            example: 0
+        - in: query
+          name: start
+          required: false
+          schema:
+            type: string
+            example: '2023-01-01T00:00:00-00:00'
+        - in: query
+          name: end
+          required: false
+          schema:
+            type: string
+            example: '2023-01-01T23:59:59-00:00'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                      example: 'Wizyta ...'
+                    start:
+                      type: integer
+                      example: 1567900800000
+                    end:
+                      type: integer
+                      example: 1567900800000
