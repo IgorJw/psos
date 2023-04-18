@@ -1,7 +1,7 @@
 package com.example.psostest.Requirements.Enum;
 
 public enum PassCriteria {
-    SREDNIA_OCEN,
-    ZDANE_WSZYSTKIE_KOLOKWIA,
-    AKTYWNOSC
+    AVG_GRADE,
+    ALL_TEST_PASSED,
+    ACTIVITY
 }
