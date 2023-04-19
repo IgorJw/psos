@@ -10,6 +10,7 @@ CREATE TABLE users_basic_info (
                                   name VARCHAR(255),
                                   surname VARCHAR(255),
                                   start_year INTEGER,
+                                  field_of_study VARCHAR(255),
                                   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -31,8 +32,8 @@ CREATE TABLE events (
 INSERT INTO users (username, password,role)
 VALUES ('admin', '$2a$10$jpibn/RY5spt5adkqBcnxOlGmeI3xtABO0jDa7I2CONgdHK6FSBoO','ADMIN');
 
-INSERT INTO users_basic_info (name, surname, start_year, user_id)
-VALUES ('name', 'surname', 2023, 1);
+INSERT INTO users_basic_info (name, surname, start_year,field_of_study, user_id)
+VALUES ('name', 'surname', 2023,'IT', 1);
 
 INSERT INTO subjects (name, teacher, user_id)
 VALUES ('Analiza matematyczna', 'Bulatek', 1);

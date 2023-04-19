@@ -28,6 +28,7 @@ public class UserController {
 
         map.put("name", userInfo.getName());
         map.put("surname", userInfo.getSurname());
+        map.put("field_of_study", userInfo.getField_of_study());
         map.put("year", userInfo.getYear().toString());
 
         return ResponseEntity.ok(map);

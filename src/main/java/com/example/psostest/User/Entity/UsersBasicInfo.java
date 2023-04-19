@@ -22,6 +22,8 @@ public class UsersBasicInfo {
     private String surname;
     @Column(name = "start_year")
     private Integer year;
+    @Column(name = "field_of_study")
+    private String field_of_study;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;

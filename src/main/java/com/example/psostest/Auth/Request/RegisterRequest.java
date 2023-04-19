@@ -12,5 +12,6 @@ public class RegisterRequest {
     private String name;
     private String surname;
     private Integer year;
+    private String field_of_study;
     private String password;
 }
