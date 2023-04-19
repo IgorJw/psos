@@ -49,6 +49,7 @@ public class AuthenticationService {
                 .surname(request.getSurname())
                 .year(request.getYear())
                 .user(user)
+                .field_of_study(request.getField_of_study())
                 .build();
         usersBasicInfoRepository.save(ubi);
 
