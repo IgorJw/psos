@@ -29,12 +29,10 @@ public class SubjectRequirement {
     private Subject subject;
     private String content;
 
-    @Enumerated(EnumType.STRING)
     private ExamType examType;
 
     private Integer examCount;
 
-    @Enumerated(EnumType.STRING)
     private PassCriteria passCriteria;
 
     @OneToMany(mappedBy = "subjectRequirement", cascade = CascadeType.ALL)

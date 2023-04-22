@@ -26,7 +26,6 @@ public class Requirement {
     @JsonIgnore
     private SubjectRequirement subjectRequirement;
 
-    @Enumerated(EnumType.STRING)
     private RequirementType requirementType;
 
     private Double requirementProgress;
