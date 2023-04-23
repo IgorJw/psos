@@ -1,13 +1,13 @@
 package com.example.psostest;
 
 import com.example.psostest.Event.Repository.EventRepository;
+import com.example.psostest.Storage.Service.StorageService;
 import com.example.psostest.Subject.Repository.SubjectRepository;
-import com.example.psostest.Subject.Service.SubjectService;
 import com.example.psostest.User.Repository.UserRepository;
 import com.example.psostest.User.Repository.UsersBasicInfoRepository;
-import com.example.psostest.User.Service.UsersService;
 import jakarta.persistence.EntityManagerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -17,26 +17,21 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableTransactionManagement
-public class PsosTestApplication{
+@RequiredArgsConstructor
+public class PsosTestApplication implements CommandLineRunner {
 
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    UsersBasicInfoRepository usersBasicInfoRepository;
-    @Autowired
-    SubjectRepository subjectRepository;
-    @Autowired
-    EventRepository eventRepository;
+    final UserRepository userRepository;
 
-    @Autowired
-    public PsosTestApplication(UserRepository userRepository, UsersBasicInfoRepository usersBasicInfo, UsersService usersService, SubjectRepository subjectRepository, EventRepository eventRepository, SubjectService subjectService) {
-        this.userRepository = userRepository;
-        this.usersBasicInfoRepository = usersBasicInfo;
-        this.subjectRepository = subjectRepository;
-        this.eventRepository = eventRepository;
-    }
+    final UsersBasicInfoRepository usersBasicInfoRepository;
+
+    final SubjectRepository subjectRepository;
+
+    final EventRepository eventRepository;
+
+    final StorageService storageService;
+
     @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
@@ -46,5 +41,9 @@ public class PsosTestApplication{
         SpringApplication.run(PsosTestApplication.class, args);
     }
 
+    @Override
+    public void run(String... args) throws Exception {
+        storageService.init();
+    }
 }
 

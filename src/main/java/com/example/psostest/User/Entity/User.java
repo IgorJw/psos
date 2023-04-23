@@ -1,6 +1,7 @@
 package com.example.psostest.User.Entity;
 
 import com.example.psostest.Event.Entity.Event;
+import com.example.psostest.Storage.Entity.FileEntity;
 import com.example.psostest.User.Enum.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,6 +37,14 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @ManyToMany
+    @JoinTable(
+            name = "users_files",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "file_id")
+    )
+    private Set<FileEntity> files;
+
     public Integer getId() {
         return id;
     }
@@ -66,6 +75,15 @@ public class User implements UserDetails {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+
+    public Set<FileEntity> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Set<FileEntity> files) {
+        this.files = files;
     }
 
     @Override
