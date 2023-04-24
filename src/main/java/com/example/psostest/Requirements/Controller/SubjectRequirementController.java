@@ -1,6 +1,5 @@
 package com.example.psostest.Requirements.Controller;
 
-import com.example.psostest.Config.Response.ResponseWithMessage;
 import com.example.psostest.Requirements.Entity.Requirement;
 import com.example.psostest.Requirements.Entity.SubjectRequirement;
 import com.example.psostest.Requirements.Repository.RequirementRepository;
@@ -8,6 +7,7 @@ import com.example.psostest.Requirements.Repository.SubjectRequirementRepository
 import com.example.psostest.Requirements.Request.SubjectRequirementCreateRequest;
 import com.example.psostest.Requirements.Request.SubjectRequirementDeleteRequest;
 import com.example.psostest.Requirements.Request.SubjectRequirementModifyRequest;
+import com.example.psostest.Shared.Response.ResponseWithMessage;
 import com.example.psostest.Subject.Entity.Subject;
 import com.example.psostest.Subject.Repository.SubjectRepository;
 import lombok.RequiredArgsConstructor;

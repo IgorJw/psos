@@ -1,21 +1,19 @@
 package com.example.psostest.Subject.Controller;
 
 import com.example.psostest.Shared.Response.ResponseWithMessage;
-import com.example.psostest.Config.Service.JwtService;
 import com.example.psostest.Subject.Entity.Subject;
 import com.example.psostest.Subject.Repository.SubjectRepository;
 import com.example.psostest.Subject.Request.SubjectCreateRequest;
 import com.example.psostest.Subject.Request.SubjectModifyRequest;
 import com.example.psostest.Subject.Service.SubjectService;
 import com.example.psostest.User.Entity.User;
-import com.example.psostest.User.Repository.UserRepository;
+import com.example.psostest.User.Service.UsersService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -24,27 +22,19 @@ public class SubjectController {
 
     private final SubjectService subjectService;
     private final SubjectRepository subjectRepository;
-    private final JwtService jwtService;
-    private final UserRepository userRepository;
+    private final UsersService usersService;
 
     @GetMapping("/subject/{subjectId}")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<Map<String, String>> getSubjectInfo(@PathVariable Integer subjectId) {
+    public ResponseEntity<Subject> getSubjectInfo(@PathVariable Integer subjectId) {
         Subject subject = subjectService.getSubjectById(subjectId);
-
-        Map<String, String> map = new HashMap<>();
-        map.put("name", subject.getName());
-        map.put("teacher", subject.getTeacher());
-
-        return ResponseEntity.ok(map);
+        return ResponseEntity.ok(subject);
     }
 
     @PostMapping("/subject")
-    public ResponseEntity<Subject> createSubject(@RequestBody SubjectCreateRequest request) {
+    public ResponseEntity<Subject> createSubject(HttpServletRequest token, @RequestBody SubjectCreateRequest request) {
         try {
-            String userName = jwtService.extractUsername(request.getUserToken());
-            User user = userRepository.findByUsername(userName).orElseThrow(NoSuchElementException::new);
-
+            User user = usersService.getLoggedUser(token);
             Subject newSubject = Subject
                     .builder()
                     .name(request.getName())
