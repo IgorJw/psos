@@ -1,6 +1,6 @@
 package com.example.psostest.Subject.Controller;
 
-import com.example.psostest.Config.Response.ResponseWithMessage;
+import com.example.psostest.Shared.Response.ResponseWithMessage;
 import com.example.psostest.Config.Service.JwtService;
 import com.example.psostest.Subject.Entity.Subject;
 import com.example.psostest.Subject.Repository.SubjectRepository;

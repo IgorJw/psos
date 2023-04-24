@@ -1,4 +1,4 @@
-package com.example.psostest.Config.Response;
+package com.example.psostest.Shared.Response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

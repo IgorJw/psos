@@ -1,9 +1,11 @@
 package com.example.psostest.User.Controller;
 
-import com.example.psostest.Config.Response.ResponseWithMessage;
+import com.example.psostest.Shared.Response.ResponseWithMessage;
 import com.example.psostest.User.Entity.UsersBasicInfo;
 import com.example.psostest.User.Repository.UsersBasicInfoRepository;
 import com.example.psostest.User.Request.UsersBasicInfoModifyRequest;
+import com.example.psostest.User.Service.UsersService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ public class UserController {
 
 
     private final UsersBasicInfoRepository usersBasicInfoRepository;
+    private final UsersService usersService;
 
     @GetMapping("/user/{userId}")
     @CrossOrigin(origins = "http://localhost:3000")
@@ -32,6 +35,11 @@ public class UserController {
         map.put("year", userInfo.getYear().toString());
 
         return ResponseEntity.ok(map);
+    }
+    @GetMapping("/u/{userId}")
+    public String getLogged(HttpServletRequest request, @PathVariable Integer userId)
+    {
+        return usersService.getLoggedUser(request).getUsername();
     }
 
     @PutMapping("/user")

@@ -1,11 +1,11 @@
 package com.example.psostest.Event.Controller;
 
-import com.example.psostest.Config.Response.ResponseWithMessage;
 import com.example.psostest.Config.Service.JwtService;
 import com.example.psostest.Event.Entity.Event;
 import com.example.psostest.Event.Repository.EventRepository;
 import com.example.psostest.Event.Request.EventCreateRequest;
 import com.example.psostest.Event.Request.EventModifyRequest;
+import com.example.psostest.Shared.Response.ResponseWithMessage;
 import com.example.psostest.Subject.Entity.Subject;
 import com.example.psostest.Subject.Repository.SubjectRepository;
 import com.example.psostest.User.Entity.User;
