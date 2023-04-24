@@ -21,13 +21,18 @@ public class RequirementController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/requirement/")
     public ResponseEntity<Requirement> modifyRequirement(@RequestBody RequirementModifyRequest request) {
-        Requirement requirement = requirementRepository.findById(request.getRequirementId()).orElseThrow(NoSuchElementException::new);
-        if (request.getContent() != null) requirement.setContent(request.getContent());
-        if (request.getRequirementType() != null) requirement.setRequirementType(request.getRequirementType());
-        if (request.getRequirementProgress() != null)
-            requirement.setRequirementProgress(request.getRequirementProgress());
-        requirementRepository.save(requirement);
-        return ResponseEntity.ok(requirement);
+        try{
+            Requirement requirement = requirementRepository.findById(request.getRequirementId()).orElseThrow(NoSuchElementException::new);
+            if (request.getContent() != null) requirement.setContent(request.getContent());
+            if (request.getRequirementType() != null) requirement.setRequirementType(request.getRequirementType());
+            if (request.getRequirementProgress() != null)
+                requirement.setRequirementProgress(request.getRequirementProgress());
+            requirementRepository.save(requirement);
+            return ResponseEntity.ok(requirement);
+        } catch (NoSuchElementException e)
+        {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
