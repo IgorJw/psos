@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SubjectCreateRequest {
-    String userToken;
     String name;
     String teacher;
 }

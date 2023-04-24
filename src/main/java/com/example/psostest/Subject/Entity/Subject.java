@@ -10,7 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Builder
 @Entity
@@ -27,9 +27,9 @@ public class Subject {
     @Column(name = "teacher", nullable = false)
     private String teacher;
     @OneToMany(mappedBy = "subject", cascade = {CascadeType.REMOVE})
-    private Set<Event> events;
+    private List<Event> events;
     @OneToMany(mappedBy = "subject", cascade = {CascadeType.REMOVE})
-    private Set<SubjectRequirement> subjectRequirements;
+    private List<SubjectRequirement> subjectRequirements;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

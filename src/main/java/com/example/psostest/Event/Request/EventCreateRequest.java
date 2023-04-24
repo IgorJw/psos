@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventCreateRequest {
-    String userToken;
     String content;
     LocalDate date;
     EventPriority priority;

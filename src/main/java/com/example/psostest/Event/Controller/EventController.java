@@ -1,6 +1,5 @@
 package com.example.psostest.Event.Controller;
 
-import com.example.psostest.Config.Service.JwtService;
 import com.example.psostest.Event.Entity.Event;
 import com.example.psostest.Event.Repository.EventRepository;
 import com.example.psostest.Event.Request.EventCreateRequest;
@@ -9,7 +8,8 @@ import com.example.psostest.Shared.Response.ResponseWithMessage;
 import com.example.psostest.Subject.Entity.Subject;
 import com.example.psostest.Subject.Repository.SubjectRepository;
 import com.example.psostest.User.Entity.User;
-import com.example.psostest.User.Repository.UserRepository;
+import com.example.psostest.User.Service.UsersService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -27,9 +27,8 @@ import java.util.NoSuchElementException;
 public class EventController {
 
     private final EventRepository eventRepository;
-    private final UserRepository userRepository;
     private final SubjectRepository subjectRepository;
-    private final JwtService jwtService;
+    private final UsersService usersService;
 
     @GetMapping("/event/{eventId}")
     @CrossOrigin(origins = "http://localhost:3000")
@@ -56,9 +55,8 @@ public class EventController {
     }
 
     @PostMapping("/event")
-    public ResponseEntity<Event> createEvent(@RequestBody EventCreateRequest request) {
-        String userName = jwtService.extractUsername(request.getUserToken());
-        User user = userRepository.findByUsername(userName).orElseThrow(NoSuchElementException::new);
+    public ResponseEntity<Event> createEvent(HttpServletRequest token, @RequestBody EventCreateRequest request) {
+        User user = usersService.getLoggedUser(token);
         Subject subject = subjectRepository.findById(request.getSubjectId()).orElseThrow(NoSuchElementException::new);
         Event newEvent = Event
                 .builder()
