@@ -2,6 +2,7 @@ package com.example.psostest.Storage.Controller;
 
 
 import com.example.psostest.Shared.Response.ResponseWithMessage;
+import com.example.psostest.Storage.Entity.FileEntity;
 import com.example.psostest.Storage.Model.FileInfo;
 import com.example.psostest.Storage.Service.StorageService;
 import com.example.psostest.User.Entity.User;
@@ -43,7 +44,7 @@ public class FilesController {
         }
     }
 
-    @GetMapping("/files")
+    @GetMapping("/all_files")
     public ResponseEntity<List<FileInfo>> getListFiles() {
         List<FileInfo> fileInfos = storageService.loadAll().map(path -> {
             String filename = path.getFileName().toString();
@@ -56,12 +57,24 @@ public class FilesController {
         return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
     }
 
+    @GetMapping("/files")
+    @ResponseBody
+    public ResponseEntity<List<FileEntity>> getAllUserFiles(HttpServletRequest request) {
+        User u = usersService.getLoggedUser(request);
+        List<FileEntity> files = storageService.getAllFilesFromUser(u);
+        return ResponseEntity.status(HttpStatus.OK).body(files);
+    }
+
     @GetMapping("/files/{userDir}/{filename:.+}")
     @ResponseBody
-    public ResponseEntity<Resource> getFile(HttpServletRequest request, @PathVariable String userDir, @PathVariable String filename) {
-        User user = usersService.getLoggedUser(request);
-        Resource file = storageService.load(userDir, user, filename);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    public ResponseEntity<?> getFile(HttpServletRequest request, @PathVariable String userDir, @PathVariable String filename) {
+        try {
+            User user = usersService.getLoggedUser(request);
+            Resource file = storageService.load(userDir, user, filename);
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseWithMessage(e.getMessage()));
+        }
     }
 }

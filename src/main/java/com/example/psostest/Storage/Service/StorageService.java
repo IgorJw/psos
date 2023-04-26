@@ -18,6 +18,7 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
@@ -63,7 +64,6 @@ public class StorageService {
 
     public Resource load(String userDirString, User user, String filename) {
         try {
-            System.out.println("/uploads/" + userDirString + filename);
             FileEntity f = fileStorageRepository.findFileStorageByUrl("/uploads/" + userDirString + "/" + filename);
 
             if (f == null) {
@@ -94,6 +94,9 @@ public class StorageService {
         FileSystemUtils.deleteRecursively(root.toFile());
     }
 
+    public List<FileEntity> getAllFilesFromUser(User user) {
+        return fileStorageRepository.findAllByUser(user.getId());
+    }
 
     public Stream<Path> loadAll() {
         try {
