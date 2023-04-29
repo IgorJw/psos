@@ -1,12 +1,15 @@
 package com.example.psostest.Storage.Entity;
 
+import com.example.psostest.ShareLinks.Entity.ShareLink;
 import com.example.psostest.User.Entity.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,8 +21,13 @@ import java.util.Set;
 public class FileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-    String url;
+    private Integer id;
+    private String url;
+
     @ManyToMany(mappedBy = "files")
-    Set<User> users;
+    @JsonIgnore
+    private Set<User> users;
+
+    @ManyToMany(mappedBy = "resources")
+    private List<ShareLink> shareLinks;
 }

@@ -2,7 +2,7 @@ package com.example.psostest.Storage.Controller;
 
 
 import com.example.psostest.Shared.Response.ResponseWithMessage;
-import com.example.psostest.Storage.Model.FileInfo;
+import com.example.psostest.Storage.Entity.FileEntity;
 import com.example.psostest.Storage.Service.StorageService;
 import com.example.psostest.User.Entity.User;
 import com.example.psostest.User.Service.UsersService;
@@ -15,10 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -44,24 +42,23 @@ public class FilesController {
     }
 
     @GetMapping("/files")
-    public ResponseEntity<List<FileInfo>> getListFiles() {
-        List<FileInfo> fileInfos = storageService.loadAll().map(path -> {
-            String filename = path.getFileName().toString();
-            String url = MvcUriComponentsBuilder
-                    .fromMethodName(FilesController.class, "getFile", path.getFileName().toString()).build().toString();
-
-            return new FileInfo(filename, url);
-        }).collect(Collectors.toList());
-
-        return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
+    @ResponseBody
+    public ResponseEntity<List<FileEntity>> getAllUserFiles(HttpServletRequest request) {
+        User u = usersService.getLoggedUser(request);
+        List<FileEntity> files = storageService.getAllFilesFromUser(u);
+        return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
     @GetMapping("/files/{userDir}/{filename:.+}")
     @ResponseBody
-    public ResponseEntity<Resource> getFile(HttpServletRequest request, @PathVariable String userDir, @PathVariable String filename) {
-        User user = usersService.getLoggedUser(request);
-        Resource file = storageService.load(userDir, user, filename);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    public ResponseEntity<?> getFile(HttpServletRequest request, @PathVariable String userDir, @PathVariable String filename) {
+        try {
+            User user = usersService.getLoggedUser(request);
+            Resource file = storageService.load(userDir, user, filename);
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ResponseWithMessage(e.getMessage()));
+        }
     }
 }
