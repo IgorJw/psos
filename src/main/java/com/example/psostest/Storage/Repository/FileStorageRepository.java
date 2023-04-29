@@ -10,6 +10,6 @@ import java.util.List;
 public interface FileStorageRepository extends JpaRepository<FileEntity, Integer> {
     FileEntity findFileStorageByUrl(String url);
 
-    @Query("select f from FileEntity f join User u where u.id = :id")
-    List<FileEntity> findAllByUser(@Param("id") Integer id);
+    @Query("select f from FileEntity f join User ON :userId = f.id")
+    List<FileEntity> findAllByUser(@Param("userId") Integer userId);
 }

@@ -43,7 +43,7 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "file_id")
     )
-    private Set<FileEntity> files;
+    private List<FileEntity> files;
 
     public Integer getId() {
         return id;
@@ -78,11 +78,11 @@ public class User implements UserDetails {
     }
 
 
-    public Set<FileEntity> getFiles() {
+    public List<FileEntity> getFiles() {
         return files;
     }
 
-    public void setFiles(Set<FileEntity> files) {
+    public void setFiles(List<FileEntity> files) {
         this.files = files;
     }
 

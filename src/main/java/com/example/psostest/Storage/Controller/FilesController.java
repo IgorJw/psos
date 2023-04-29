@@ -3,7 +3,6 @@ package com.example.psostest.Storage.Controller;
 
 import com.example.psostest.Shared.Response.ResponseWithMessage;
 import com.example.psostest.Storage.Entity.FileEntity;
-import com.example.psostest.Storage.Model.FileInfo;
 import com.example.psostest.Storage.Service.StorageService;
 import com.example.psostest.User.Entity.User;
 import com.example.psostest.User.Service.UsersService;
@@ -16,10 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -42,19 +39,6 @@ public class FilesController {
             message = "Could not upload the file: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseWithMessage(message));
         }
-    }
-
-    @GetMapping("/all_files")
-    public ResponseEntity<List<FileInfo>> getListFiles() {
-        List<FileInfo> fileInfos = storageService.loadAll().map(path -> {
-            String filename = path.getFileName().toString();
-            String url = MvcUriComponentsBuilder
-                    .fromMethodName(FilesController.class, "getFile", path.getFileName().toString()).build().toString();
-
-            return new FileInfo(filename, url);
-        }).collect(Collectors.toList());
-
-        return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
     }
 
     @GetMapping("/files")
