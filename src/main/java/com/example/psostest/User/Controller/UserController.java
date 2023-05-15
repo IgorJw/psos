@@ -36,13 +36,9 @@ public class UserController {
 
         return ResponseEntity.ok(map);
     }
-    @GetMapping("/u/{userId}")
-    public String getLogged(HttpServletRequest request, @PathVariable Integer userId)
-    {
-        return usersService.getLoggedUser(request).getUsername();
-    }
 
     @PutMapping("/user")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<ResponseWithMessage> updateUserBasicInfo(@RequestBody UsersBasicInfoModifyRequest request) {
         try {
             UsersBasicInfo usersBasicInfo = usersBasicInfoRepository.findByUserId(request.getId());

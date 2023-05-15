@@ -32,6 +32,7 @@ public class SubjectController {
     }
 
     @PostMapping("/subject")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Subject> createSubject(HttpServletRequest token, @RequestBody SubjectCreateRequest request) {
         try {
             User user = usersService.getLoggedUser(token);
@@ -49,6 +50,7 @@ public class SubjectController {
     }
 
     @PutMapping("/subject")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<ResponseWithMessage> modifySubject(@RequestBody SubjectModifyRequest request) {
         try {
             Subject subject = subjectRepository.findById(request.getSubjectId()).orElseThrow(NoSuchElementException::new);
@@ -65,6 +67,7 @@ public class SubjectController {
     }
 
     @DeleteMapping("/subject/{subjectId}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<ResponseWithMessage> deleteSubject(@PathVariable Integer subjectId) {
         try {
             Subject subject = subjectRepository.findById(subjectId).orElseThrow(NoSuchElementException::new);

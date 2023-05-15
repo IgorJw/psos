@@ -39,6 +39,7 @@ public class SubjectRequirementController {
     }
 
     @PostMapping("/subject_requirement")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<SubjectRequirement> createSubjectRequirement(@RequestBody SubjectRequirementCreateRequest request) {
         try {
             Subject subject = subjectRepository.findById(request.getSubjectId()).orElseThrow(NoSuchElementException::new);

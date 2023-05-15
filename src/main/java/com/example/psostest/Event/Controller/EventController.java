@@ -49,12 +49,14 @@ public class EventController {
     }
 
     @GetMapping("/events/{date}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<Event>> getEventsByDate(@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("date") LocalDate date) {
         List<Event> events = eventRepository.findAllByDate(date);
         return ResponseEntity.ok(events);
     }
 
     @PostMapping("/event")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Event> createEvent(HttpServletRequest token, @RequestBody EventCreateRequest request) {
         User user = usersService.getLoggedUser(token);
         Subject subject = subjectRepository.findById(request.getSubjectId()).orElseThrow(NoSuchElementException::new);
@@ -71,6 +73,7 @@ public class EventController {
     }
 
     @PutMapping("/event")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<ResponseWithMessage> modifyEvent(@RequestBody EventModifyRequest request) {
         try {
             Event event = eventRepository.findById(request.getEventId()).orElseThrow(NoSuchElementException::new);
@@ -98,6 +101,7 @@ public class EventController {
     }
 
     @DeleteMapping("/event/{eventId}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<ResponseWithMessage> deleteEvent(@PathVariable Integer eventId) {
         try {
             Subject subject = subjectRepository.findById(eventId).orElseThrow(NoSuchElementException::new);

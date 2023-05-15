@@ -22,13 +22,13 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
-@CrossOrigin("http://localhost:8081")
 public class FilesController {
 
     private final UsersService usersService;
     private final StorageService storageService;
 
     @PostMapping("/upload")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<ResponseWithMessage> uploadFile(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
         String message = "";
         try {
@@ -44,6 +44,7 @@ public class FilesController {
     }
 
     @GetMapping("/files")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<FileInfo>> getListFiles() {
         List<FileInfo> fileInfos = storageService.loadAll().map(path -> {
             String filename = path.getFileName().toString();
@@ -57,6 +58,7 @@ public class FilesController {
     }
 
     @GetMapping("/files/{userDir}/{filename:.+}")
+    @CrossOrigin(origins = "http://localhost:3000")
     @ResponseBody
     public ResponseEntity<Resource> getFile(HttpServletRequest request, @PathVariable String userDir, @PathVariable String filename) {
         User user = usersService.getLoggedUser(request);
