@@ -48,15 +48,15 @@ public class EventController {
         }
     }
 
-    @GetMapping("/events/{date}")
     @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/events/{date}")
     public ResponseEntity<List<Event>> getEventsByDate(@DateTimeFormat(pattern = "yyyy-MM-dd") @PathVariable("date") LocalDate date) {
         List<Event> events = eventRepository.findAllByDate(date);
         return ResponseEntity.ok(events);
     }
 
-    @PostMapping("/event")
     @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/event")
     public ResponseEntity<Event> createEvent(HttpServletRequest token, @RequestBody EventCreateRequest request) {
         User user = usersService.getLoggedUser(token);
         Subject subject = subjectRepository.findById(request.getSubjectId()).orElseThrow(NoSuchElementException::new);

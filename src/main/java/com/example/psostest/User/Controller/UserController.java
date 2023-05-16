@@ -1,6 +1,7 @@
 package com.example.psostest.User.Controller;
 
 import com.example.psostest.Shared.Response.ResponseWithMessage;
+import com.example.psostest.User.Entity.User;
 import com.example.psostest.User.Entity.UsersBasicInfo;
 import com.example.psostest.User.Repository.UsersBasicInfoRepository;
 import com.example.psostest.User.Request.UsersBasicInfoModifyRequest;
@@ -29,6 +30,23 @@ public class UserController {
         Map<String, String> map = new HashMap<>();
         UsersBasicInfo userInfo = usersBasicInfoRepository.findByUserId(userId);
 
+        map.put("name", userInfo.getName());
+        map.put("surname", userInfo.getSurname());
+        map.put("field_of_study", userInfo.getField_of_study());
+        map.put("year", userInfo.getYear().toString());
+
+        return ResponseEntity.ok(map);
+    }
+
+    @GetMapping("/user/currentUser")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Map<String,String>> getCurrentUserInfo(HttpServletRequest request)
+    {
+        User user = usersService.getLoggedUser(request);
+        Map<String, String> map = new HashMap<>();
+        UsersBasicInfo userInfo = usersBasicInfoRepository.findByUserId(user.getId());
+
+        map.put("username",user.getUsername());
         map.put("name", userInfo.getName());
         map.put("surname", userInfo.getSurname());
         map.put("field_of_study", userInfo.getField_of_study());
